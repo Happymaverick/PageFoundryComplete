@@ -1,0 +1,56 @@
+<div class="contact-wrapper">
+  <h1>{{ translate.translate('CANWEHELP') }}<br />{{ translate.translate('LETSTALK') }}</h1>
+  <hr class="divider" />
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">{{ translate.translate('YOUR NAME') }}</label>
+        <input id="name" formControlName="name" type="text" />
+        <div class="error" *ngIf="submitted && contactForm.get('name')?.invalid">
+          Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">{{ translate.translate('YOUR EMAIL') }}</label>
+        <input id="email" formControlName="email" type="email" />
+        <div class="error" *ngIf="submitted && contactForm.get('email')?.invalid">
+          {{ translate.translate('INVALID EMAIL') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="company">{{ translate.translate('YOUR COMPANY') }}</label>
+        <input id="company" formControlName="company" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label for="source">{{ translate.translate('HOW DID U FIND US') }}</label>
+        <input id="source" formControlName="source" type="text" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="message">{{ translate.translate('YOUR MESSAGE') }}</label>
+      <textarea id="message" formControlName="message" rows="4"></textarea>
+    </div>
+
+    <div class="checkbox-row">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="newsletter" />
+        <span class="checkmark"></span>
+        {{ translate.translate('NEWSLETTER') }}
+      </label>
+    </div>
+
+    <button type="submit" class="submit-btn">{{ translate.translate('SEND') }}</button>
+
+    <p class="legal">
+      This site is protected by reCAPTCHA and the Google
+      <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+    </p>
+  </form>
+</div>

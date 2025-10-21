@@ -1,0 +1,18 @@
+# PageFoundry Backend
+
+Ein kleines PHP-Backend mit API-Endpunkten:
+- /api/register.php
+- /api/login.php
+- /api/get_user.php
+...
+
+## Setup lokal
+1. `composer install`
+2. `.env` mit DB-Zugang erstellen
+3. `php -S localhost:8000 -t public` (falls du integrierten Server nutzt)
+
+## Struktur
+- api/
+- classes/
+- config/
+- utils/

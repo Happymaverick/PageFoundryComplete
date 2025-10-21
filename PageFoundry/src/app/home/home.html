@@ -1,0 +1,27 @@
+<section class="home-hero">
+  <div class="content">
+    <h1 class="logo">{{ translate.translate('LOGO') }}</h1>
+
+    <hr class="divider" />
+
+    <h2 class="headline">
+      {{ translate.translate('TITLE') }}
+    </h2>
+
+    <p class="subtext">
+      {{ translate.translate('TAGLINE') }}
+    </p>
+
+    <button class="cta-btn"(click)="scrollTo('about')">{{ translate.translate('DISCOVER') }}</button>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="line"></span>
+    <span class="text">Scroll to explore</span>
+    <span class="arrow">↓</span>
+  </div>
+
+
+  <div class="gradient-fade"></div>
+</section>
+

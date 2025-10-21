@@ -1,0 +1,52 @@
+<div class="login-wrapper">
+  <h1>{{ translate.translate('WELCOME') }}</h1>
+  <p class="subtitle">{{ translate.translate('SignInMessage') }}</p>
+  <hr class="divider" />
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">{{ translate.translate('YOUR EMAIL') }}</label>
+      <input id="email" formControlName="email" type="email" />
+      <div class="error" *ngIf="submitted && loginForm.get('email')?.invalid">
+        Please enter a valid email address
+      </div>
+    </div>
+
+    <div class="form-group password-group">
+      <label for="password">{{ translate.translate('PASSWORD') }}</label>
+      <div class="password-wrapper">
+        <input
+          id="password"
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+        />
+        <button
+          type="button"
+          class="toggle-btn"
+          (click)="togglePassword()"
+          aria-label="Toggle password visibility"
+        >
+          {{ showPassword ? '🙈' : '👁️' }}
+        </button>
+      </div>
+      <div class="error" *ngIf="submitted && loginForm.get('password')?.invalid">
+        Password must be at least 6 characters
+      </div>
+    </div>
+
+    <div class="checkbox-row">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="remember" />
+        <span class="checkmark"></span>
+        {{ translate.translate('REMEMBER ME') }}
+      </label>
+    </div>
+
+    <button type="submit" class="submit-btn">{{ translate.translate('LOG-IN') }}</button>
+
+    <p class="small-text">
+      {{ translate.translate('NOACCOUNT') }}
+      <a href="#" (click)="goToSignUp($event)">{{ translate.translate('SIGNUP') }}</a>
+    </p>
+  </form>
+</div>

@@ -1,0 +1,148 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background: #000;
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+body {
+  scrollbar-width: none;
+}
+
+:host {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+}
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#bgCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+.sidebar {
+  position: fixed;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  z-index: 10;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.lang-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.lang-select button {
+  background: none;
+  border: 1px solid #555;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.lang-select button:hover {
+  background: #ffd700;
+  color: #000;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+  padding: 0.3rem 0.5rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.nav-btn:hover {
+  color: #ffcc00;
+  transform: translateX(5px);
+}
+
+.nav-btn.active {
+  color: #000;
+  background: #ffcc00;
+  font-weight: bold;
+}
+
+.scroll-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.full-section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10rem;
+  scroll-snap-align: none;
+  box-sizing: border-box;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+}
+
+p {
+  margin-top: 1.5rem;
+  color: #ccc;
+  font-size: 1rem;
+  text-align: center;
+}

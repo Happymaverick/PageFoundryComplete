@@ -1,0 +1,73 @@
+<div class="signin-wrapper">
+  <h1>{{ translate.translate('CREATEACCOUNT T1') }}</h1>
+  <p class="subtitle">{{ translate.translate('CREATEACCOUNT T2') }}</p>
+  <hr class="divider" />
+
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="username">{{ translate.translate('CREATEACCOUNT T3') }}</label>
+        <input id="username" type="text" formControlName="username" />
+        <div class="error" *ngIf="submitted && signInForm.get('username')?.invalid">
+          {{ translate.translate('CREATEACCOUNT T12') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">{{ translate.translate('CREATEACCOUNT T4') }}</label>
+        <input id="email" type="email" formControlName="email" />
+        <div class="error" *ngIf="submitted && signInForm.get('email')?.invalid">
+          {{ translate.translate('CREATEACCOUNT T13') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="forename">{{ translate.translate('CREATEACCOUNT T5') }}</label>
+        <input id="forename" type="text" formControlName="forename" />
+      </div>
+
+      <div class="form-group">
+        <label for="surname">{{ translate.translate('CREATEACCOUNT T6') }}</label>
+        <input id="surname" type="text" formControlName="surname" />
+      </div>
+    </div>
+
+    <div class="form-group password-group">
+      <label for="password">{{ translate.translate('CREATEACCOUNT T7') }}</label>
+      <div class="password-wrapper">
+        <input
+          id="password"
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+        />
+        <button
+          type="button"
+          class="toggle-btn"
+          (click)="togglePassword()"
+          aria-label="Toggle password visibility"
+        >
+          {{ showPassword ? '🙈' : '👁️' }}
+        </button>
+      </div>
+      <div class="error" *ngIf="submitted && signInForm.get('password')?.invalid">
+        {{ translate.translate('CREATEACCOUNT T14') }}
+      </div>
+    </div>
+
+    <div class="checkbox-row">
+      <label class="checkbox">
+        <input type="checkbox" formControlName="newsletter" />
+        <span class="checkmark"></span>
+        {{ translate.translate('CREATEACCOUNT T8') }}
+      </label>
+    </div>
+
+    <button type="submit" class="submit-btn" (click)="onSubmit()">{{ translate.translate('CREATEACCOUNT T9') }}</button>
+
+    <p class="small-text">
+      {{ translate.translate('CREATEACCOUNT T10') }} <a href="#" (click)="goToLogin($event)">{{ translate.translate('CREATEACCOUNT T11') }}</a>
+    </p>
+  </form>
+</div>
