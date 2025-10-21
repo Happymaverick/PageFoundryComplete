@@ -1,0 +1,27 @@
+# PHP / Composer
+/vendor/
+composer.lock
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+.env
+.env.*
+*.log
+*.cache
+*.tmp
+
+# IDEs / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Tests / Coverage
+/coverage/
+/.phpunit.result.cache
+
+# Local config files
+config/local.php
+config/db.php
