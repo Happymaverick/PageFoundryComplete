@@ -1,0 +1,178 @@
+.products-section {
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);   
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8rem 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #aaa;
+  max-width: 600px;
+  margin-bottom: 4rem;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* === Produktkarten === */
+.product-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: left;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(6px);
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  width: 160%;
+  height: 160%;
+  background: radial-gradient(
+    circle at 20% 20%,
+    rgba(255, 215, 0, 0.05),
+    transparent 60%
+  );
+  transform: rotate(25deg);
+  transition: opacity 0.4s;
+  opacity: 0;
+  z-index: 0;
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+.product-card:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.1);
+}
+
+.product-card h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.product-card p {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.product-card .options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.product-card label {
+  font-size: 0.85rem;
+  color: #bbb;
+  cursor: pointer;
+}
+
+.product-card input {
+  margin-right: 0.3rem;
+}
+
+.price {
+  display: block;
+  color: #ffd700;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* === HERVORGEHOBENE Karte (Kostenlose Beratung) === */
+.product-card.highlight {
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  background: rgba(255, 215, 0, 0.05);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.1);
+}
+
+.product-card.highlight:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.25);
+}
+
+.price.kostenlos {
+  color: #00ff88;
+  font-weight: 700;
+}
+
+.btn {
+  background: transparent;
+  color: #ffd700;
+  border: 1px solid #ffd700;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #ffd700;
+  color: #000;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.highlight-btn {
+  color: #00ff88;
+  border-color: #00ff88;
+}
+
+.highlight-btn:hover {
+  background: #00ff88;
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .products-section {
+    padding: 6rem 1.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .product-card {
+    padding: 1.5rem;
+  }
+}
