@@ -1,7 +1,17 @@
 <div class="account-container">
   <section class="hero">
-    <h1 class="headline">Welcome back, {{ user?.firstname || 'User' }}.</h1>
-    <p class="subline">Manage your profile, orders, and security preferences — all in one place.</p>
+    <div class="account-header">
+      <h1 class="headline">Welcome back, {{ user?.firstname || 'User' }}.</h1>
+
+      <!-- 🔙 Back to Products -->
+      <button class="back-btn" (click)="router.navigate(['/home'])">
+        ← Back to Products
+      </button>
+    </div>
+
+    <p class="subline">
+      Manage your profile, orders, and security preferences — all in one place.
+    </p>
   </section>
 
   <section class="account-sections">
