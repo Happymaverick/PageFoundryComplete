@@ -17,7 +17,7 @@ export const routes: Routes = [
   // ✅ Lazy Loaded Account Page
   {
     path: 'account',
-    loadComponent: () => import('./account/account').then(m => m.Account),
+    loadComponent: () => import('./account/account.component').then(m => m.AccountComponent),
     canActivate: [AuthGuard]
   },
 
