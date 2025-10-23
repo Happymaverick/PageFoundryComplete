@@ -7,7 +7,7 @@ import { Login } from './login/login';
 import { AuthGuard } from './guards/auth.guard'; // <— wird gleich erstellt
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'contact', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: Home },
   { path: 'about', component: About },
   { path: 'projects', component: Projects },
