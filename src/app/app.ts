@@ -47,15 +47,19 @@ export class App implements AfterViewInit, OnInit {
     this.checkScreenSize();
     window.addEventListener('resize', () => this.checkScreenSize());
 
-    // 🔄 Routerüberwachung: Prüfen, ob wir uns auf der Account-Seite befinden
+    // 🔄 URL-Überwachung: prüft, ob aktuell auf /account
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         this.isAccountPage = event.url.startsWith('/account');
+        if (this.isAccountPage) {
+          // optional: automatisches Scroll-Reset
+          window.scrollTo({ top: 0 });
+        }
       });
   }
 
-  // 🔐 Login / Logout Logic
+  // 🔐 Login / Logout
   checkLogin(): void {
     this.isLoggedIn = !!localStorage.getItem('user');
   }
@@ -66,16 +70,14 @@ export class App implements AfterViewInit, OnInit {
     this.router.navigate(['/home']);
   }
 
-  // 📱 Sidebar
+  // 📱 Sidebar-Handling
   checkScreenSize() {
     this.isMobile = window.innerWidth <= 900;
     this.isSidebarOpen = !this.isMobile;
   }
 
   toggleSidebar() {
-    if (this.isMobile) {
-      this.isSidebarOpen = !this.isSidebarOpen;
-    }
+    if (this.isMobile) this.isSidebarOpen = !this.isSidebarOpen;
   }
 
   // 🌍 Sprache
@@ -83,7 +85,7 @@ export class App implements AfterViewInit, OnInit {
     this.translate.setLanguage(lang);
   }
 
-  // 🔁 Login <-> SignIn Umschalten
+  // 🔁 Login ↔ SignUp Umschalten
   toggleSignIn() {
     this.showLogin = false;
   }
@@ -92,8 +94,10 @@ export class App implements AfterViewInit, OnInit {
     this.showLogin = true;
   }
 
-  // 🔽 Smooth Scroll (inkl. Sidebar Handling)
+  // 🔽 Smooth Scroll (nur auf Landing aktiv)
   scrollTo(sectionId: string) {
+    if (this.isAccountPage) return;
+
     const target = document.getElementById(sectionId);
     if (!target) return;
 
@@ -105,28 +109,7 @@ export class App implements AfterViewInit, OnInit {
 
     if (this.isMobile && this.isSidebarOpen) {
       this.isSidebarOpen = false;
-
-      const sidebarEl = document.querySelector('.sidebar') as HTMLElement | null;
-      if (sidebarEl) {
-        let handled = false;
-        const onTransitionEnd = (ev?: TransitionEvent) => {
-          if (ev && ev.propertyName && !['transform', 'opacity', 'top', 'left'].includes(ev.propertyName)) return;
-          if (handled) return;
-          handled = true;
-          sidebarEl.removeEventListener('transitionend', onTransitionEnd as EventListener);
-          setTimeout(doScroll, 10);
-        };
-        sidebarEl.addEventListener('transitionend', onTransitionEnd as EventListener);
-        setTimeout(() => {
-          if (!handled) {
-            handled = true;
-            sidebarEl.removeEventListener('transitionend', onTransitionEnd as EventListener);
-            doScroll();
-          }
-        }, 600);
-      } else {
-        setTimeout(doScroll, 350);
-      }
+      setTimeout(doScroll, 350);
     } else {
       doScroll();
     }
@@ -158,7 +141,7 @@ export class App implements AfterViewInit, OnInit {
     pointLight.position.set(0, 0.2, 0);
     scene.add(pointLight);
 
-    function animate() {
+    const animate = () => {
       requestAnimationFrame(animate);
       const time = performance.now() * 0.0015;
       const positions = geometry.attributes['position'] as THREE.BufferAttribute;
@@ -168,10 +151,11 @@ export class App implements AfterViewInit, OnInit {
         const y = Math.sin(i / 5 + time) * 0.15;
         positions.setZ(i, y);
       }
+
       positions.needsUpdate = true;
       mesh.rotation.z = Math.sin(time * 0.1) * 0.1;
       renderer.render(scene, camera);
-    }
+    };
 
     animate();
 

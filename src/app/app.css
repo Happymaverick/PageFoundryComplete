@@ -236,11 +236,18 @@ body {
   pointer-events: none;
   transition: opacity 0.5s ease;
 }
-
-.router-wrapper {
-  z-index: 2;
+.account-page-wrapper {
   position: relative;
-  animation: fadeIn 0.5s ease forwards;
+  z-index: 1;
+  width: 100%;
+  min-height: 100vh;
+  padding: 5rem 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  animation: fadeIn 0.4s ease;
 }
 
 @keyframes fadeIn {
