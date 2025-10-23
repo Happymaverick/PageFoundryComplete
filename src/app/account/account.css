@@ -1,1 +1,74 @@
+.account-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+  color: #fff;
+  padding: 5rem 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.6s ease-in;
+}
 
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.headline {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.subline {
+  font-size: 1.2rem;
+  color: #bbb;
+  margin-top: 0.5rem;
+}
+
+.account-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.account-card {
+  background-color: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.account-card:hover {
+  border-color: #ffcc00;
+  transform: translateY(-5px);
+}
+
+.account-card h2 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.account-card p {
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.account-card.delete {
+  border-color: #660000;
+}
+
+.account-card.delete:hover {
+  border-color: #ff0000;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

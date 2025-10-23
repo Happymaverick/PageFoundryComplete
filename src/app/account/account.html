@@ -1,1 +1,33 @@
+<div class="account-container">
+  <section class="hero">
+    <h1 class="headline">Welcome back, {{ user?.firstname || 'User' }}.</h1>
+    <p class="subline">Manage your profile, orders, and security preferences — all in one place.</p>
+  </section>
 
+  <section class="account-sections">
+    <div class="account-card" (click)="navigate('overview')">
+      <h2>Overview</h2>
+      <p>Quick summary of your account and activities.</p>
+    </div>
+
+    <div class="account-card" (click)="navigate('orders')">
+      <h2>Orders</h2>
+      <p>Track your projects and purchases.</p>
+    </div>
+
+    <div class="account-card" (click)="navigate('security')">
+      <h2>Security</h2>
+      <p>Manage your password, 2FA, and linked logins.</p>
+    </div>
+
+    <div class="account-card" (click)="navigate('payment')">
+      <h2>Payment</h2>
+      <p>Manage payment methods like PayPal, Klarna, and Amazon Pay.</p>
+    </div>
+
+    <div class="account-card delete" (click)="navigate('delete')">
+      <h2>Delete Account</h2>
+      <p>Remove your data permanently.</p>
+    </div>
+  </section>
+</div>

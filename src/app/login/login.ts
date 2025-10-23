@@ -63,7 +63,11 @@ export class Login {
         if (res.success) {
           this.message = 'Login successful!';
           localStorage.setItem('user', JSON.stringify(res.user));
-          // TODO: navigate or emit login success event if needed
+
+          // 🔄 Direkt neu laden, damit Navbar & Zustand aktualisiert werden
+          setTimeout(() => {
+            window.location.reload();
+          }, 400);
         } else {
           this.message = res.error || 'Invalid credentials.';
         }
