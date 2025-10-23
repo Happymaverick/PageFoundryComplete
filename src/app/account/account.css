@@ -121,7 +121,7 @@ html, body { max-width: 100%; overflow-x: clip; }
     padding: 12px;
   }
 
-  /* Harte Wortumbrüche überall innerhalb des Account-Bereichs */
+  /* Harte Wortumbrüche im Account-Bereich */
   .account-container * {
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -139,14 +139,30 @@ html, body { max-width: 100%; overflow-x: clip; }
   }
 }
 
-/* === Account page specific hamburger alignment fix === */
+/* === Account-only FORCE overrides (Hamburger & Breite) === */
 @media (max-width: 900px) {
-  /* Hamburger-Button bündig auf Account-Seite */
-  .account-container ~ .menu-toggle,
-  .account-container .menu-toggle {
+  /* trifft globale .menu-toggle trotz ViewEncapsulation */
+  :host ::ng-deep .menu-toggle {
     left: 0.5rem !important;
     top: 0.8rem !important;
     padding: 0.3rem 0.6rem !important;
-    border-radius: 10px;
+    margin: 0 !important;
+    border-radius: 10px !important;
   }
+
+  /* falls Sidebar mit left:2rem reinragt */
+  :host ::ng-deep .sidebar { left: 0 !important; }
+
+  /* Sicherheit: echte Inhaltsbreite erzwingen */
+  .account-container {
+    width: 95% !important;
+    max-width: 420px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .account-sections { grid-template-columns: minmax(0,1fr) !important; }
+  .account-card { min-width: 0 !important; }
 }
