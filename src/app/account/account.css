@@ -124,7 +124,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
   .account-sections {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);  /* verhindert zu breite Karten */
+    grid-template-columns: minmax(0, 1fr);
     gap: 12px;
     max-width: 640px;
     margin: 0 auto;
@@ -133,7 +133,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
   .account-card {
     width: 100%;
-    min-width: 0;               /* wichtig gegen Überbreite */
+    min-width: 0;
     padding: 12px;
   }
 
@@ -141,10 +141,13 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .account-card p,
   .account-card span { overflow-wrap: anywhere; }
 
-  /* Back-Button nicht abschneiden + besser tappbar */
-  .btn-back { display: block; width: 100%; text-align: center; margin: 0.5rem 0 1rem; }
+  .btn-back {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0.5rem 0 1rem;
+  }
 
-  /* Headline etwas kleiner */
   .headline { font-size: 1.75rem; line-height: 1.2; }
   .subline  { font-size: 0.95rem; line-height: 1.4; }
 }
@@ -174,6 +177,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
   html, body { overflow-x: hidden; }
 }
+
 /* === Safe-area + stabile Inline-Paddings === */
 :root {
   --px: 1rem;
@@ -182,7 +186,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .account-container {
   margin-inline: auto;
   width: min(100%, 1200px);
-  min-height: 100dvh; /* statt 100vh → Mobile-UI-Leiste */
+  min-height: 100dvh;
   padding-left: max(var(--px), env(safe-area-inset-left));
   padding-right: max(var(--px), env(safe-area-inset-right));
 }
@@ -191,14 +195,23 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .account-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
-    /* überschreibt die alten 10% */
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
   }
 
-  .account-sections { grid-template-columns: minmax(0,1fr); }
+  .account-sections { grid-template-columns: minmax(0, 1fr); }
   .account-card { min-width: 0; }
 }
 
-/* letzter Schutz gegen Subpixel-Overflow */
+/* === Seite etwas schmaler auf Mobile === */
+@media (max-width: 768px) {
+  .account-container {
+    width: 95%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Letzter Schutz gegen Subpixel-Overflow */
 html, body { overflow-x: clip; }
