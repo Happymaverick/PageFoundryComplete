@@ -112,3 +112,27 @@
     transform: translateY(0);
   }
 }
+/* === Mobile Responsive Fix === */
+@media (max-width: 768px) {
+  .account-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    width: 90%;
+    margin: 1rem auto;
+  }
+
+  .account-actions button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.9rem;
+  }
+}
+
+/* Optional: Extra small screens (iPhone SE etc.) */
+@media (max-width: 480px) {
+  .account-actions button {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+}
