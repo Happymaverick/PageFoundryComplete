@@ -153,3 +153,24 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .headline { font-size: 1.6rem; }
   .account-card { padding: 10px; }
 }
+
+/* --- Mobile word breaking & overflow kill --- */
+@media (max-width: 768px) {
+  .account-container,
+  .account-hero,
+  .account-sections,
+  .account-card { min-width: 0; max-width: 100%; }
+
+  .account-container *,
+  .account-hero *,
+  .account-sections *,
+  .account-card * {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  html, body { overflow-x: hidden; }
+}
