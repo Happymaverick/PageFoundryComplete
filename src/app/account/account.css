@@ -112,27 +112,45 @@
     transform: translateY(0);
   }
 }
-/* === Mobile Responsive Fix === */
+/* === Mobile Stack & Safe Paddings === */
 @media (max-width: 768px) {
-  .account-actions {
+  .account-container {
+    padding: 2rem 1rem;
+  }
+
+  .account-header {
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 0.75rem;
-    width: 90%;
-    margin: 1rem auto;
   }
 
-  .account-actions button {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.9rem;
+  .headline {
+    font-size: 2rem;
+    text-align: left;
   }
-}
 
-/* Optional: Extra small screens (iPhone SE etc.) */
-@media (max-width: 480px) {
-  .account-actions button {
+  .subline {
     font-size: 0.95rem;
-    padding: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .account-sections {
+    grid-template-columns: 1fr;            /* statt auto-fit */
+    gap: 1rem;
+    width: 100%;
+    max-width: none;
+  }
+
+  .account-card {
+    padding: 1rem;                          /* weniger Innenabstand */
   }
 }
+
+@media (max-width: 480px) {
+  .headline { font-size: 1.75rem; }
+  .account-card { padding: 0.9rem; }
+}
+
+/* Sicherheitsnetz gegen horizontales Scrollen */
+html, body { overflow-x: hidden; }
+
