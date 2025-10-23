@@ -1,3 +1,4 @@
+/* === ACCOUNT PAGE BASE === */
 .account-container {
   width: 100%;
   min-height: 100vh;
@@ -53,7 +54,10 @@
   cursor: pointer;
   transition: all 0.25s ease;
 }
-.back-btn:hover { background: #ffd700; color: #000; }
+.back-btn:hover {
+  background: #ffd700;
+  color: #000;
+}
 
 /* Cards */
 .account-sections {
@@ -73,24 +77,55 @@
   cursor: pointer;
   text-align: left;
 }
-.account-card:hover { border-color: #ffcc00; transform: translateY(-5px); }
-.account-card h2 { font-size: 1.5rem; color: #ffd700; margin-bottom: 0.5rem; }
-.account-card p  { color: #aaa; font-size: 1rem; }
 
-.account-card.delete { border-color: #660000; }
-.account-card.delete:hover { border-color: #ff0000; }
+.account-card:hover {
+  border-color: #ffcc00;
+  transform: translateY(-5px);
+}
 
+.account-card h2 {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+}
+
+.account-card p {
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.account-card.delete {
+  border-color: #660000;
+}
+
+.account-card.delete:hover {
+  border-color: #ff0000;
+}
+
+/* Animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Global guards */
-* { box-sizing: border-box; }
-html, body { max-width: 100%; overflow-x: clip; }
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
 
-/* === Responsive wie app.css (900px) === */
-@media (max-width: 900px) {
+/* === Responsive (Smartphones bis 450px) === */
+@media (max-width: 450px) {
   .account-container {
     width: 95%;
     max-width: 420px;
@@ -98,10 +133,20 @@ html, body { max-width: 100%; overflow-x: clip; }
     padding: 1.5rem 1rem;
   }
 
-  .account-header { padding-left: 0; padding-right: 0; }
+  .account-header {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-  .headline { font-size: 1.75rem; line-height: 1.2; }
-  .subline  { font-size: 0.95rem; line-height: 1.4; }
+  .headline {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  .subline {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
 
   .hero,
   .account-sections {
@@ -113,15 +158,15 @@ html, body { max-width: 100%; overflow-x: clip; }
 
   .account-sections {
     grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .account-card {
     min-width: 0;
-    padding: 12px;
+    padding: 10px;
   }
 
-  /* Harte Wortumbrüche im Account-Bereich */
+  /* Harte Wortumbrüche überall innerhalb des Account-Bereichs */
   .account-container * {
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -140,7 +185,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 }
 
 /* === Account-only FORCE overrides (Hamburger & Breite) === */
-@media (max-width: 900px) {
+@media (max-width: 450px) {
   /* trifft globale .menu-toggle trotz ViewEncapsulation */
   :host ::ng-deep .menu-toggle {
     left: 0.5rem !important;
@@ -150,8 +195,10 @@ html, body { max-width: 100%; overflow-x: clip; }
     border-radius: 10px !important;
   }
 
-  /* falls Sidebar mit left:2rem reinragt */
-  :host ::ng-deep .sidebar { left: 0 !important; }
+  /* Sidebar etwas nach links, falls sie reinragt */
+  :host ::ng-deep .sidebar {
+    left: 0 !important;
+  }
 
   /* Sicherheit: echte Inhaltsbreite erzwingen */
   .account-container {
@@ -163,6 +210,11 @@ html, body { max-width: 100%; overflow-x: clip; }
     padding-right: 1rem !important;
   }
 
-  .account-sections { grid-template-columns: minmax(0,1fr) !important; }
-  .account-card { min-width: 0 !important; }
+  .account-sections {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .account-card {
+    min-width: 0 !important;
+  }
 }
