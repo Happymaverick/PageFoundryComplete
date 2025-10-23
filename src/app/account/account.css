@@ -138,3 +138,15 @@ html, body { max-width: 100%; overflow-x: clip; }
     margin: 0.5rem 0 1rem;
   }
 }
+
+/* === Account page specific hamburger alignment fix === */
+@media (max-width: 900px) {
+  /* Hamburger-Button bündig auf Account-Seite */
+  .account-container ~ .menu-toggle,
+  .account-container .menu-toggle {
+    left: 0.5rem !important;
+    top: 0.8rem !important;
+    padding: 0.3rem 0.6rem !important;
+    border-radius: 10px;
+  }
+}
