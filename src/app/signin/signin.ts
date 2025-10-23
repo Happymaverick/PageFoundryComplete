@@ -4,26 +4,30 @@ import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angula
 import { AuthService } from '../services/auth.service';
 import { TranslationService } from '../services/translation.service';
 
-
 @Component({
   selector: 'app-signin',
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './signin.html',
-  styleUrl: './signin.css'
+  styleUrls: ['./signin.css']
 })
 export class Signin {
-   @Output() switchToLogin = new EventEmitter<void>();
+  @Output() switchToLogin = new EventEmitter<void>();
   signInForm: FormGroup;
   submitted = false;
   showPassword = false;
   message: string = '';
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder, public translate: TranslationService, private auth: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    public translate: TranslationService,
+    private auth: AuthService
+  ) {
     this.signInForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
-      forename: ['', Validators.required],
-      surname: ['', Validators.required],
+      firstname: ['', Validators.required],
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       newsletter: [false]
@@ -44,20 +48,33 @@ export class Signin {
   }
 
   onSubmit(): void {
-     if (this.signInForm.invalid) {
+    this.submitted = true;
+
+    if (this.signInForm.invalid) {
       this.message = 'Please fill in all required fields correctly.';
+      console.warn('⚠️ Invalid form:', this.signInForm.value);
       return;
     }
 
-    this.isSubmitting = true;
+    console.log('🟢 Register button clicked');
+    console.log('Sending registration data:', this.signInForm.value);
 
+    this.isSubmitting = true;
     this.auth.register(this.signInForm.value).subscribe({
       next: (res) => {
-        this.message = res.message || 'Registration successful!';
-        this.signInForm.reset();
+        console.log('✅ Server response:', res);
+        if (res.success) {
+          this.message = 'Registration successful!';
+          alert('✅ Registration successful. You can now log in.');
+          this.signInForm.reset();
+          this.switchToLogin.emit();
+        } else {
+          this.message = res.error || 'Registration failed.';
+        }
       },
       error: (err) => {
-        this.message = err.error?.error || 'Registration failed.';
+        console.error('❌ Registration error:', err);
+        this.message = err.error?.error || 'Server error during registration.';
       },
       complete: () => (this.isSubmitting = false)
     });

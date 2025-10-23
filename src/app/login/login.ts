@@ -1,25 +1,30 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { TranslationService } from '../services/translation.service';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { TranslationService } from '../services/translation.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrls: ['./login.css']
 })
 export class Login {
-   @Output() switchToSignup = new EventEmitter<void>();
+  @Output() switchToSignup = new EventEmitter<void>();
+
   loginForm: FormGroup;
   submitted = false;
   showPassword = false;
   message: string = '';
   isLoading = false;
 
-  constructor(private fb: FormBuilder, public translate: TranslationService, private auth: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    public translate: TranslationService,
+    private auth: AuthService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -34,33 +39,42 @@ export class Login {
   togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
-  
-   goToSignUp(event: Event): void {
+
+  goToSignUp(event: Event): void {
     event.preventDefault();
     this.switchToSignup.emit();
   }
 
   onSubmit(): void {
+    console.log('🟢 Login button clicked');
     if (this.loginForm.invalid) {
       this.message = 'Please enter valid credentials.';
+      console.warn('⚠️ Invalid form:', this.loginForm.value);
       return;
     }
 
     this.isLoading = true;
+    const credentials = this.loginForm.value;
+    console.log('Sending credentials:', credentials);
 
-    this.auth.login(this.loginForm.value).subscribe({
+    this.auth.login(credentials).subscribe({
       next: (res) => {
+        console.log('✅ Server response:', res);
         if (res.success) {
           this.message = 'Login successful!';
           localStorage.setItem('user', JSON.stringify(res.user));
+          // TODO: navigate or emit login success event if needed
         } else {
           this.message = res.error || 'Invalid credentials.';
         }
       },
       error: (err) => {
+        console.error('❌ Login error:', err);
         this.message = err.error?.error || 'Server error.';
       },
-      complete: () => (this.isLoading = false)
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 }

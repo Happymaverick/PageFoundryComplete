@@ -5,7 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'https://PageFoundry.de/PageFoundryBackend/api';; // <- PHP Backend
+  private apiUrl = 'https://PageFoundry.de/api';; // <- PHP Backend
 
   constructor(private http: HttpClient) {}
 

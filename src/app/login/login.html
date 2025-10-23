@@ -3,10 +3,22 @@
   <p class="subtitle">{{ translate.translate('SignInMessage') }}</p>
   <hr class="divider" />
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <!-- Wichtig: (submit) + (ngSubmit) doppelt für absolute Sicherheit -->
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    (submit)="onSubmit()"
+    novalidate
+  >
     <div class="form-group">
       <label for="email">{{ translate.translate('YOUR EMAIL') }}</label>
-      <input id="email" formControlName="email" type="email" />
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        autocomplete="username"
+        required
+      />
       <div class="error" *ngIf="submitted && loginForm.get('email')?.invalid">
         Please enter a valid email address
       </div>
@@ -19,6 +31,8 @@
           id="password"
           [type]="showPassword ? 'text' : 'password'"
           formControlName="password"
+          autocomplete="current-password"
+          required
         />
         <button
           type="button"
@@ -42,11 +56,22 @@
       </label>
     </div>
 
-    <button type="submit" class="submit-btn">{{ translate.translate('LOG-IN') }}</button>
+    <button
+      type="submit"
+      class="submit-btn"
+      [disabled]="isLoading"
+      (click)="submitted = true"
+    >
+      {{ isLoading ? '...' : translate.translate('LOG-IN') }}
+    </button>
 
     <p class="small-text">
       {{ translate.translate('NOACCOUNT') }}
-      <a href="#" (click)="goToSignUp($event)">{{ translate.translate('SIGNUP') }}</a>
+      <a href="#" (click)="goToSignUp($event)">
+        {{ translate.translate('SIGNUP') }}
+      </a>
     </p>
+
+    <p *ngIf="message" class="error-message">{{ message }}</p>
   </form>
 </div>

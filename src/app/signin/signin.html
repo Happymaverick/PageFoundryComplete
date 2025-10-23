@@ -3,7 +3,7 @@
   <p class="subtitle">{{ translate.translate('CREATEACCOUNT T2') }}</p>
   <hr class="divider" />
 
-  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-row">
       <div class="form-group">
         <label for="username">{{ translate.translate('CREATEACCOUNT T3') }}</label>
@@ -24,13 +24,13 @@
 
     <div class="form-row">
       <div class="form-group">
-        <label for="forename">{{ translate.translate('CREATEACCOUNT T5') }}</label>
-        <input id="forename" type="text" formControlName="forename" />
+        <label for="firstname">{{ translate.translate('CREATEACCOUNT T5') }}</label>
+        <input id="firstname" type="text" formControlName="firstname" />
       </div>
 
       <div class="form-group">
-        <label for="surname">{{ translate.translate('CREATEACCOUNT T6') }}</label>
-        <input id="surname" type="text" formControlName="surname" />
+        <label for="name">{{ translate.translate('CREATEACCOUNT T6') }}</label>
+        <input id="name" type="text" formControlName="name" />
       </div>
     </div>
 
@@ -64,10 +64,17 @@
       </label>
     </div>
 
-    <button type="submit" class="submit-btn" (click)="onSubmit()">{{ translate.translate('CREATEACCOUNT T9') }}</button>
+    <button type="submit" class="submit-btn" [disabled]="isSubmitting">
+      {{ isSubmitting ? '...' : translate.translate('CREATEACCOUNT T9') }}
+    </button>
 
     <p class="small-text">
-      {{ translate.translate('CREATEACCOUNT T10') }} <a href="#" (click)="goToLogin($event)">{{ translate.translate('CREATEACCOUNT T11') }}</a>
+      {{ translate.translate('CREATEACCOUNT T10') }}
+      <a href="#" (click)="goToLogin($event)">
+        {{ translate.translate('CREATEACCOUNT T11') }}
+      </a>
     </p>
+
+    <p *ngIf="message" class="error-message">{{ message }}</p>
   </form>
 </div>
