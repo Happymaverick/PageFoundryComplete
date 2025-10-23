@@ -174,3 +174,31 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
   html, body { overflow-x: hidden; }
 }
+/* === Safe-area + stabile Inline-Paddings === */
+:root {
+  --px: 1rem;
+}
+
+.account-container {
+  margin-inline: auto;
+  width: min(100%, 1200px);
+  min-height: 100dvh; /* statt 100vh → Mobile-UI-Leiste */
+  padding-left: max(var(--px), env(safe-area-inset-left));
+  padding-right: max(var(--px), env(safe-area-inset-right));
+}
+
+@media (max-width: 768px) {
+  .account-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    /* überschreibt die alten 10% */
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .account-sections { grid-template-columns: minmax(0,1fr); }
+  .account-card { min-width: 0; }
+}
+
+/* letzter Schutz gegen Subpixel-Overflow */
+html, body { overflow-x: clip; }
