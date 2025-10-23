@@ -12,11 +12,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-.hero {
-  text-align: center;
-  margin-bottom: 4rem;
-  width: 100%;
-}
+.hero { text-align: center; margin-bottom: 4rem; width: 100%; }
 
 /* Header */
 .account-header {
@@ -36,12 +32,7 @@
   text-align: left;
 }
 
-.subline {
-  font-size: 1.2rem;
-  color: #bbb;
-  margin-top: 0.5rem;
-  text-align: left;
-}
+.subline { font-size: 1.2rem; color: #bbb; margin-top: 0.5rem; text-align: left; }
 
 /* Back-Button */
 .back-btn {
@@ -54,10 +45,7 @@
   cursor: pointer;
   transition: all 0.25s ease;
 }
-.back-btn:hover {
-  background: #ffd700;
-  color: #000;
-}
+.back-btn:hover { background: #ffd700; color: #000; }
 
 /* Cards */
 .account-sections {
@@ -77,144 +65,36 @@
   cursor: pointer;
   text-align: left;
 }
-
-.account-card:hover {
-  border-color: #ffcc00;
-  transform: translateY(-5px);
-}
-
-.account-card h2 {
-  font-size: 1.5rem;
-  color: #ffd700;
-  margin-bottom: 0.5rem;
-}
-
-.account-card p {
-  color: #aaa;
-  font-size: 1rem;
-}
-
-.account-card.delete {
-  border-color: #660000;
-}
-
-.account-card.delete:hover {
-  border-color: #ff0000;
-}
+.account-card:hover { border-color: #ffcc00; transform: translateY(-5px); }
+.account-card h2 { font-size: 1.5rem; color: #ffd700; margin-bottom: 0.5rem; }
+.account-card p  { color: #aaa; font-size: 1rem; }
+.account-card.delete { border-color: #660000; }
+.account-card.delete:hover { border-color: #ff0000; }
 
 /* Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Global guards */
-* {
-  box-sizing: border-box;
-}
-html,
-body {
-  max-width: 100%;
-  overflow-x: clip;
-}
+* { box-sizing: border-box; }
+html, body { max-width: 100%; overflow-x: clip; }
 
 /* === Responsive (Smartphones bis 450px) === */
 @media (max-width: 450px) {
-  .account-container {
-    width: 95%;
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem;
-  }
+  .account-container { width: 95%; max-width: 420px; margin: 0 auto; padding: 1.5rem 1rem; }
+  .headline { font-size: 1.6rem; line-height: 1.2; }
+  .subline  { font-size: 0.9rem; line-height: 1.4; }
+  .hero, .account-sections { width: 100%; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .account-sections { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .account-card { min-width: 0; padding: 10px; }
 
-  .account-header {
-    padding-left: 0;
-    padding-right: 0;
-  }
+  /* Wortumbrüche überall im Account-Bereich */
+  .account-container * { overflow-wrap: anywhere; word-break: break-word; white-space: normal; hyphens: auto; -webkit-hyphens: auto; }
 
-  .headline {
-    font-size: 1.6rem;
-    line-height: 1.2;
-  }
-
-  .subline {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  .hero,
-  .account-sections {
-    width: 100%;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .account-sections {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 10px;
-  }
-
-  .account-card {
-    min-width: 0;
-    padding: 10px;
-  }
-
-  /* Harte Wortumbrüche überall innerhalb des Account-Bereichs */
-  .account-container * {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    white-space: normal;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-  }
-
-  /* Back-Button tappbar & nicht abgeschnitten */
-  .back-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
-    margin: 0.5rem 0 1rem;
-  }
+  /* Back-Button tappbar */
+  .back-btn { display: block; width: 100%; text-align: center; margin: 0.5rem 0 1rem; }
 }
 
-/* === Account-only FORCE overrides (Hamburger & Breite) === */
-@media (max-width: 450px) {
-  /* trifft globale .menu-toggle trotz ViewEncapsulation */
-  :host ::ng-deep .menu-toggle {
-    left: 0.5rem !important;
-    top: 0.8rem !important;
-    padding: 0.3rem 0.6rem !important;
-    margin: 0 !important;
-    border-radius: 10px !important;
-  }
-
-  /* Sidebar etwas nach links, falls sie reinragt */
-  :host ::ng-deep .sidebar {
-    left: 0 !important;
-  }
-
-  /* Sicherheit: echte Inhaltsbreite erzwingen */
-  .account-container {
-    width: 95% !important;
-    max-width: 420px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-
-  .account-sections {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
-
-  .account-card {
-    min-width: 0 !important;
-  }
-}
+/* === Account-only: Hamburger & Sidebar AUS === */
+:host ::ng-deep .menu-toggle { display: none !important; }
+:host ::ng-deep .sidebar,
+:host ::ng-deep .sidebar.open { display: none !important; }
