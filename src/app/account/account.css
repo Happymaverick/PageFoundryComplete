@@ -215,3 +215,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 /* Letzter Schutz gegen Subpixel-Overflow */
 html, body { overflow-x: clip; }
+
+/* Engfassen der echten Inhalte (unabhängig vom Wrapper) */
+@media (max-width: 768px) {
+  .hero,
+  .account-sections {
+    width: 100%;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
