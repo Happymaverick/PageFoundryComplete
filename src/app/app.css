@@ -231,3 +231,19 @@ body {
     display: block;
   }
 }
+.scroll-content.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.router-wrapper {
+  z-index: 2;
+  position: relative;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

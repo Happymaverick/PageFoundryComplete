@@ -5,7 +5,7 @@
 
   <nav class="sidebar" [class.open]="isSidebarOpen">
     <a href="index.html" class="logo-link">
-      <img src="assets/content.png" alt="Page Foundry Logo" class="logo">
+      <img src="assets/content.png" alt="Page Foundry Logo" class="logo" />
     </a>
 
     <button class="nav-btn" (click)="scrollTo('home')">{{ translate.translate('HOME') }}</button>
@@ -30,7 +30,10 @@
     </div>
   </nav>
 
-  <main class="scroll-content" [class.hidden]="isSidebarOpen && isMobile">
+  <!-- 🔸 Hauptinhalt -->
+  <main class="scroll-content"
+        [class.hidden]="isSidebarOpen && isMobile"
+        [class.fade-out]="isAccountPage">
     <section id="home"><app-home></app-home></section>
     <section id="about"><app-about></app-about></section>
     <section id="projects"><app-projects></app-projects></section>
@@ -47,5 +50,9 @@
       </ng-template>
     </section>
   </main>
-  <router-outlet></router-outlet>
+
+  <!-- 🔸 Routerbereich (z. B. /account) -->
+  <div class="router-wrapper" *ngIf="isAccountPage">
+    <router-outlet></router-outlet>
+  </div>
 </div>

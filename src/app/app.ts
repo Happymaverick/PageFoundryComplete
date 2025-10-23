@@ -1,7 +1,7 @@
 import { Component, signal, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterModule, RouterOutlet, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { TranslationService } from './services/translation.service';
 import { Home } from './home/home';
 import { About } from './about/about';
@@ -27,7 +27,7 @@ import * as THREE from 'three';
     Login,
     Signin,
     Products
-],
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -36,6 +36,7 @@ export class App implements AfterViewInit, OnInit {
   isSidebarOpen = false;
   isMobile = false;
   isLoggedIn = false;
+  isAccountPage = false;
 
   protected readonly title = signal('PageFoundry');
 
@@ -45,6 +46,13 @@ export class App implements AfterViewInit, OnInit {
     this.checkLogin();
     this.checkScreenSize();
     window.addEventListener('resize', () => this.checkScreenSize());
+
+    // 🔄 Routerüberwachung: Prüfen, ob wir uns auf der Account-Seite befinden
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.isAccountPage = event.url.startsWith('/account');
+      });
   }
 
   // 🔐 Login / Logout Logic
@@ -141,7 +149,7 @@ export class App implements AfterViewInit, OnInit {
       color: 0x111111,
       metalness: 1,
       roughness: 0.2,
-      wireframe: false,
+      wireframe: false
     });
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
@@ -164,6 +172,7 @@ export class App implements AfterViewInit, OnInit {
       mesh.rotation.z = Math.sin(time * 0.1) * 0.1;
       renderer.render(scene, camera);
     }
+
     animate();
 
     window.addEventListener('resize', () => {
