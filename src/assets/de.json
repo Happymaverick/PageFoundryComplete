@@ -104,5 +104,11 @@
   "CREATEACCOUNT T11": "Log in",
   "CREATEACCOUNT T12": "Ihr Benutzername ist zu kurz.",
   "CREATEACCOUNT T13": "Ihre Email Adresse scheint nicht gültig zu sein.",
-  "CREATEACCOUNT T14": "Das Passwort muss mindestens 6 Zeichen lang sein."
+  "CREATEACCOUNT T14": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+  "ACCOUNT": "Mein Account",
+  "LOGOUT": "Abmelden",
+  "MY_ORDERS": "Meine Bestellungen",
+  "SECURITY": "Sicherheit",
+  "PAYMENT": "Zahlung",
+  "DELETE_ACCOUNT": "Konto löschen"
 }

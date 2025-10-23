@@ -103,5 +103,11 @@
   "CREATEACCOUNT T11": "Log in",
   "CREATEACCOUNT T12": "Minimum 3 characters required",
   "CREATEACCOUNT T13": "Valid email required",
-  "CREATEACCOUNT T14": "Password must be at least 6 characters"
+  "CREATEACCOUNT T14": "Password must be at least 6 characters",
+  "ACCOUNT": "My Account",
+  "LOGOUT": "Log out",
+  "MY_ORDERS": "My Orders",
+  "SECURITY": "Security",
+  "PAYMENT": "Payment",
+  "DELETE_ACCOUNT": "Delete Account"
 }
