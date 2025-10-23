@@ -13,7 +13,16 @@
     <button class="nav-btn" (click)="scrollTo('projects')">{{ translate.translate('PROJECTS') }}</button>
     <button class="nav-btn" (click)="scrollTo('products')">{{ translate.translate('PRODUCTS') }}</button>
     <button class="nav-btn" (click)="scrollTo('contact')">{{ translate.translate('CONTACT') }}</button>
-    <button class="nav-btn" (click)="scrollTo('login')">{{ translate.translate('LOGIN') }}</button>
+
+    <!-- 🔄 Dynamisch: Login / Account / Logout -->
+    <ng-container *ngIf="!isLoggedIn; else accountLink">
+      <button class="nav-btn" (click)="scrollTo('login')">{{ translate.translate('LOGIN') }}</button>
+    </ng-container>
+
+    <ng-template #accountLink>
+      <button class="nav-btn" routerLink="/account">{{ translate.translate('ACCOUNT') }}</button>
+      <button class="nav-btn" (click)="logout()">{{ translate.translate('LOGOUT') }}</button>
+    </ng-template>
 
     <div class="lang-select">
       <button (click)="switchLanguage('en')">EN</button>
@@ -27,6 +36,8 @@
     <section id="projects"><app-projects></app-projects></section>
     <section id="products"><app-products></app-products></section>
     <section id="contact"><app-contact></app-contact></section>
+
+    <!-- Login / Signup Bereich -->
     <section id="login">
       <ng-container *ngIf="showLogin; else showSignup">
         <app-login (switchToSignup)="toggleSignIn()"></app-login>
