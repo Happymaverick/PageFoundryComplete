@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class AccountComponent implements OnInit {
   user: any = null;
 
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
   ngOnInit(): void {
     // 🔹 User aus localStorage laden
