@@ -157,5 +157,5 @@ html, body { max-width: 100%; overflow-x: clip; }
 /* Wrapper darf keine feste Breite erzwingen */
 :host ::ng-deep .account-page-wrapper {
   width: auto !important;
-  max-width: 100%;
+  max-width: 100% !important;
 }
