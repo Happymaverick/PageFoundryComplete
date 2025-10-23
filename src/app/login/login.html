@@ -55,8 +55,9 @@
         {{ translate.translate('REMEMBER ME') }}
       </label>
     </div>
-
+    <div style ="align-items: center;">
     <button
+      style="width:50%"
       type="submit"
       class="submit-btn"
       [disabled]="isLoading"
@@ -64,7 +65,7 @@
     >
       {{ isLoading ? '...' : translate.translate('LOG-IN') }}
     </button>
-
+    </div>
     <p class="small-text">
       {{ translate.translate('NOACCOUNT') }}
       <a href="#" (click)="goToSignUp($event)">

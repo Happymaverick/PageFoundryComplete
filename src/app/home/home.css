@@ -100,6 +100,12 @@
   opacity: 0;
 }
 
+@media (max-width: 600px) {
+  .scroll-indicator {
+    left: 55%;
+  }
+}
+
 @keyframes fadeIn {
   to {
     opacity: 1;

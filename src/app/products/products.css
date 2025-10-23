@@ -44,11 +44,17 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 2rem;
-  text-align: left;
+  text-align: center;
   transition: all 0.4s ease;
   backdrop-filter: blur(6px);
   position: relative;
   overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .product-card {
+    width:82%;
+  }
 }
 
 .product-card::before {

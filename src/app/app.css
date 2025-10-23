@@ -158,6 +158,12 @@ body {
   overflow-x: hidden;
 }
 
+@media (max-width: 900px) {
+  .scroll-content {
+    width: 75%;
+  }
+}
+
 /* === MOBILE LAYOUT === */
 @media (max-width: 900px) {
   .menu-toggle {
@@ -271,5 +277,18 @@ body {
     max-width: 420px !important;
     margin-left: auto !important;
     margin-right: auto !important;
+  }
+}
+
+/* Globales Text Alignment auf Center setzen */
+*,
+*::before,
+*::after {
+  text-align: center !important;
+}
+
+@media (min-width: 901px) {
+  .account-page-wrapper {
+    width: 100% !important;
   }
 }

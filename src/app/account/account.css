@@ -158,3 +158,9 @@ html, body { max-width: 100%; overflow-x: clip; }
 :host ::ng-deep .account-page-wrapper {
   width: auto !important;
 }
+
+@media (max-width: 768px) {
+    .account-page-wrapper {
+    padding: 2rem 1rem !important;
+  }
+}
