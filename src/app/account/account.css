@@ -17,7 +17,7 @@
   width: 100%;
 }
 
-/* 🔙 Header mit Back-Button */
+/* Header */
 .account-header {
   display: flex;
   justify-content: space-between;
@@ -42,7 +42,7 @@
   text-align: left;
 }
 
-/* 🔙 Back-Button */
+/* Back-Button */
 .back-btn {
   background: transparent;
   border: 1px solid #ffd700;
@@ -53,13 +53,9 @@
   cursor: pointer;
   transition: all 0.25s ease;
 }
+.back-btn:hover { background: #ffd700; color: #000; }
 
-.back-btn:hover {
-  background: #ffd700;
-  color: #000;
-}
-
-/* 🟨 Account Cards */
+/* Cards */
 .account-sections {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -77,97 +73,56 @@
   cursor: pointer;
   text-align: left;
 }
+.account-card:hover { border-color: #ffcc00; transform: translateY(-5px); }
+.account-card h2 { font-size: 1.5rem; color: #ffd700; margin-bottom: 0.5rem; }
+.account-card p  { color: #aaa; font-size: 1rem; }
 
-.account-card:hover {
-  border-color: #ffcc00;
-  transform: translateY(-5px);
-}
-
-.account-card h2 {
-  font-size: 1.5rem;
-  color: #ffd700;
-  margin-bottom: 0.5rem;
-}
-
-.account-card p {
-  color: #aaa;
-  font-size: 1rem;
-}
-
-.account-card.delete {
-  border-color: #660000;
-}
-
-.account-card.delete:hover {
-  border-color: #ff0000;
-}
+.account-card.delete { border-color: #660000; }
+.account-card.delete:hover { border-color: #ff0000; }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Final Mobile Polish --- */
+/* Global guards */
 * { box-sizing: border-box; }
-html, body { max-width: 100%; overflow-x: hidden; }
+html, body { max-width: 100%; overflow-x: clip; }
 
-@media (max-width: 768px) {
-  .account-container,
-  .account-hero,
-  .account-header { padding-left: 1rem; padding-right: 1rem; }
+/* === Responsive wie app.css (900px) === */
+@media (max-width: 900px) {
+  .account-container {
+    width: 95%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+
+  .account-header { padding-left: 0; padding-right: 0; }
+
+  .headline { font-size: 1.75rem; line-height: 1.2; }
+  .subline  { font-size: 0.95rem; line-height: 1.4; }
+
+  .hero,
+  .account-sections {
+    width: 100%;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   .account-sections {
-    display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
-    max-width: 640px;
-    margin: 0 auto;
-    width: 100%;
   }
 
   .account-card {
-    width: 100%;
     min-width: 0;
     padding: 12px;
   }
 
-  .account-card h3,
-  .account-card p,
-  .account-card span { overflow-wrap: anywhere; }
-
-  .btn-back {
-    display: block;
-    width: 100%;
-    text-align: center;
-    margin: 0.5rem 0 1rem;
-  }
-
-  .headline { font-size: 1.75rem; line-height: 1.2; }
-  .subline  { font-size: 0.95rem; line-height: 1.4; }
-}
-
-@media (max-width: 420px) {
-  .headline { font-size: 1.6rem; }
-  .account-card { padding: 10px; }
-}
-
-/* --- Mobile word breaking & overflow kill --- */
-@media (max-width: 768px) {
-  .account-container,
-  .account-hero,
-  .account-sections,
-  .account-card { min-width: 0; max-width: 100%; }
-
-  .account-container *,
-  .account-hero *,
-  .account-sections *,
-  .account-card * {
+  /* Harte Wortumbrüche überall innerhalb des Account-Bereichs */
+  .account-container * {
     overflow-wrap: anywhere;
     word-break: break-word;
     white-space: normal;
@@ -175,54 +130,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
     -webkit-hyphens: auto;
   }
 
-  html, body { overflow-x: hidden; }
-}
-
-/* === Safe-area + stabile Inline-Paddings === */
-:root {
-  --px: 1rem;
-}
-
-.account-container {
-  margin-inline: auto;
-  width: min(100%, 1200px);
-  min-height: 100dvh;
-  padding-left: max(var(--px), env(safe-area-inset-left));
-  padding-right: max(var(--px), env(safe-area-inset-right));
-}
-
-@media (max-width: 768px) {
-  .account-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
-  }
-
-  .account-sections { grid-template-columns: minmax(0, 1fr); }
-  .account-card { min-width: 0; }
-}
-
-/* === Seite etwas schmaler auf Mobile === */
-@media (max-width: 768px) {
-  .account-container {
-    width: 95%;
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem;
-  }
-}
-
-/* Letzter Schutz gegen Subpixel-Overflow */
-html, body { overflow-x: clip; }
-
-/* Engfassen der echten Inhalte (unabhängig vom Wrapper) */
-@media (max-width: 768px) {
-  .hero,
-  .account-sections {
+  /* Back-Button tappbar & nicht abgeschnitten */
+  .back-btn {
+    display: block;
     width: 100%;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
+    margin: 0.5rem 0 1rem;
   }
 }
