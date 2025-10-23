@@ -1,4 +1,5 @@
 import { Component, signal, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { TranslationService } from './services/translation.service';
@@ -16,15 +17,17 @@ import * as THREE from 'three';
   standalone: true,
   imports: [
     CommonModule,
+    RouterOutlet,
+    RouterLink,
     RouterModule,
     Home,
     About,
-    Projects,
     Contact,
+    Projects,
     Login,
     Signin,
     Products
-  ],
+],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
