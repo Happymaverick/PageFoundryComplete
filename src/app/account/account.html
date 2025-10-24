@@ -1,9 +1,9 @@
 <div class="account-container">
+  <!-- HERO / HEADER -->
   <section class="hero">
     <div class="account-header">
       <h1 class="headline">Welcome back, {{ user?.firstname || 'User' }}.</h1>
 
-      <!-- 🔙 Back to Products -->
       <button class="back-btn" (click)="router.navigate(['/home'])">
         ← Back to Products
       </button>
@@ -14,6 +14,7 @@
     </p>
   </section>
 
+  <!-- STATIC ACCOUNT ACTIONS -->
   <section class="account-sections">
     <div class="account-card" (click)="navigate('overview')">
       <h2>Overview</h2>
@@ -38,6 +39,72 @@
     <div class="account-card delete" (click)="navigate('delete')">
       <h2>Delete Account</h2>
       <p>Remove your data permanently.</p>
+    </div>
+  </section>
+
+  <!-- NEXT CONSULTING SESSION -->
+  <section class="dynamic-section" *ngIf="nextConsulting">
+    <h2 class="dynamic-headline">Your next session</h2>
+
+    <div class="dynamic-card">
+      <div class="dynamic-row">
+        <div class="dynamic-label">When</div>
+        <div class="dynamic-value">
+          {{ nextConsulting.timestamp_start }} CET
+        </div>
+      </div>
+
+      <div class="dynamic-row" *ngIf="nextConsulting.zoom_url">
+        <div class="dynamic-label">Join via Zoom</div>
+        <div class="dynamic-value">
+          {{ nextConsulting.zoom_url }}
+        </div>
+      </div>
+
+      <div class="dynamic-row" *ngIf="nextConsulting.goal">
+        <div class="dynamic-label">Topic</div>
+        <div class="dynamic-value">
+          {{ nextConsulting.goal }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVE PROJECTS / ORDERS -->
+  <section class="dynamic-section" *ngIf="projects?.length">
+    <h2 class="dynamic-headline">Your active projects</h2>
+
+    <div
+      class="dynamic-card"
+      *ngFor="let p of projects"
+    >
+      <div class="dynamic-row">
+        <div class="dynamic-label">Package</div>
+        <div class="dynamic-value">
+          {{ p.package_id }}
+        </div>
+      </div>
+
+      <div class="dynamic-row">
+        <div class="dynamic-label">Status</div>
+        <div class="dynamic-value">
+          {{ mapStatusHuman(p.status) }}
+        </div>
+      </div>
+
+      <div class="dynamic-row" *ngIf="p.last_status_update">
+        <div class="dynamic-label">Last update</div>
+        <div class="dynamic-value">
+          {{ p.last_status_update }}
+        </div>
+      </div>
+
+      <div class="dynamic-row" *ngIf="p.deadline_note">
+        <div class="dynamic-label">Deadline</div>
+        <div class="dynamic-value">
+          {{ p.deadline_note }}
+        </div>
+      </div>
     </div>
   </section>
 </div>

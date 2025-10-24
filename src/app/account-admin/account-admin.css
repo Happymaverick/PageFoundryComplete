@@ -1,0 +1,133 @@
+.admin-container {
+  min-height: 100vh;
+  background-color: #000;
+  color: #fff;
+  padding: 2rem 1rem 4rem;
+  font-family: "Poppins", sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeIn .4s ease-in;
+}
+
+.admin-header {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffd700;
+  margin: 0 0 .5rem;
+}
+
+.admin-sub {
+  font-size: .95rem;
+  color: #bbb;
+  line-height: 1.4;
+}
+
+.loading-block,
+.error-block {
+  color: #fff;
+  background-color: #220000;
+  border: 1px solid rgba(255,0,0,0.4);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  font-size: .9rem;
+  margin-bottom: 2rem;
+}
+
+/* Sections */
+.dash-section {
+  margin-bottom: 3rem;
+}
+
+.dash-headline {
+  color: #ffd700;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+/* Cards */
+.dash-card {
+  background-color: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1rem 1rem .5rem;
+  margin-bottom: 1rem;
+}
+
+.dash-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: .5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.dash-row:last-child {
+  border-bottom: 0;
+}
+
+.dash-label {
+  color: #bbb;
+  font-size: .8rem;
+  font-weight: 500;
+  min-width: 120px;
+  flex: 0 0 auto;
+}
+
+.dash-value {
+  color: #fff;
+  font-size: .95rem;
+  line-height: 1.4;
+  flex: 1 1 auto;
+  word-break: break-word;
+}
+
+.dash-meta {
+  color: #888;
+  font-size: .8rem;
+  line-height: 1.4;
+  margin-top: .25rem;
+}
+
+.status-row select {
+  background-color: #000;
+  color: #ffd700;
+  border: 1px solid #ffd700;
+  border-radius: 6px;
+  padding: .4rem .5rem;
+  font-size: .9rem;
+  cursor: pointer;
+}
+.status-row select:focus {
+  outline: 1px solid #ffd700;
+}
+
+/* Responsive tightening */
+@media (max-width: 480px) {
+  .admin-header h1 {
+    font-size: 1.4rem;
+  }
+  .dash-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dash-label {
+    min-width: 0;
+    font-size: .75rem;
+    margin-bottom: .25rem;
+  }
+  .dash-value {
+    font-size: .9rem;
+  }
+}
+
+/* same fadeIn you already use */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

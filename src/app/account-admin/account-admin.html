@@ -1,0 +1,140 @@
+<div class="admin-container">
+  <header class="admin-header">
+    <h1>Admin Dashboard</h1>
+    <p class="admin-sub">Consulting Leads and Active Projects</p>
+  </header>
+
+  <section *ngIf="loading()" class="loading-block">
+    <p>Loading…</p>
+  </section>
+
+  <section *ngIf="!loading() && errorMsg()" class="error-block">
+    <p>{{ errorMsg() }}</p>
+  </section>
+
+  <!-- Consulting Leads -->
+  <section class="dash-section" *ngIf="consultingLeads().length">
+    <h2 class="dash-headline">Upcoming Consulting Calls</h2>
+
+    <div
+      class="dash-card"
+      *ngFor="let lead of consultingLeads()"
+    >
+      <div class="dash-row">
+        <div class="dash-label">When</div>
+        <div class="dash-value">{{ lead.timestamp_start }} CET</div>
+      </div>
+
+      <div class="dash-row">
+        <div class="dash-label">Client</div>
+        <div class="dash-value">
+          {{ lead.full_name || '—' }}
+          <span *ngIf="lead.company_name">({{ lead.company_name }})</span>
+        </div>
+      </div>
+
+      <div class="dash-row">
+        <div class="dash-label">Contact</div>
+        <div class="dash-value">
+          {{ lead.email }}<br *ngIf="lead.phone">{{ lead.phone }}
+        </div>
+      </div>
+
+      <div class="dash-row" *ngIf="lead.website_url">
+        <div class="dash-label">Website</div>
+        <div class="dash-value">{{ lead.website_url }}</div>
+      </div>
+
+      <div class="dash-row" *ngIf="lead.budget_range">
+        <div class="dash-label">Budget</div>
+        <div class="dash-value">{{ lead.budget_range }}</div>
+      </div>
+
+      <div class="dash-row" *ngIf="lead.goal">
+        <div class="dash-label">Goal</div>
+        <div class="dash-value">{{ lead.goal }}</div>
+      </div>
+
+      <div class="dash-row" *ngIf="lead.pain_description">
+        <div class="dash-label">Pain</div>
+        <div class="dash-value">{{ lead.pain_description }}</div>
+      </div>
+
+      <div class="dash-row">
+        <div class="dash-label">Join</div>
+        <div class="dash-value">{{ lead.zoom_url }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paid Orders / Projects -->
+  <section class="dash-section" *ngIf="paidOrders().length">
+    <h2 class="dash-headline">Paid Projects</h2>
+
+    <div
+      class="dash-card"
+      *ngFor="let order of paidOrders()"
+    >
+      <div class="dash-row">
+        <div class="dash-label">Client</div>
+        <div class="dash-value">
+          {{ order.company_name || order.contact_email || '—' }}
+          <div class="dash-meta" *ngIf="order.contact_phone">
+            {{ order.contact_phone }}
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-row">
+        <div class="dash-label">Package</div>
+        <div class="dash-value">
+          {{ order.package_id }}
+          <div class="dash-meta">
+            {{ (order.amount_total_cents/100) }} {{ order.currency }}
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-row" *ngIf="order.deadline_note">
+        <div class="dash-label">Deadline</div>
+        <div class="dash-value">{{ order.deadline_note }}</div>
+      </div>
+
+      <div class="dash-row" *ngIf="order.goal_description">
+        <div class="dash-label">Goal</div>
+        <div class="dash-value">{{ order.goal_description }}</div>
+      </div>
+
+      <div class="dash-row" *ngIf="order.requested_scope">
+        <div class="dash-label">Scope</div>
+        <div class="dash-value">{{ order.requested_scope }}</div>
+      </div>
+
+      <div class="dash-row" *ngIf="order.assets_available">
+        <div class="dash-label">Assets</div>
+        <div class="dash-value">{{ order.assets_available }}</div>
+      </div>
+
+      <div class="dash-row status-row">
+        <div class="dash-label">Status</div>
+        <div class="dash-value">
+          <select
+            [value]="order.status"
+            (change)="updateStatus(order.id, $any($event.target).value)"
+          >
+            <option value="eingegangen">Eingegangen</option>
+            <option value="in_bearbeitung">In Bearbeitung</option>
+            <option value="wartet_auf_kunde">Warten auf Kunde</option>
+            <option value="review_intern">Review intern</option>
+            <option value="fertig">Fertig</option>
+            <option value="abgeschlossen">Abgeschlossen</option>
+          </select>
+          <div class="dash-meta">
+            {{ mapStatusHuman(order.status) }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>

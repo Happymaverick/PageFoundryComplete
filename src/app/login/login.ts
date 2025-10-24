@@ -46,25 +46,33 @@ export class Login {
   }
 
   onSubmit(): void {
-    console.log('🟢 Login button clicked');
     if (this.loginForm.invalid) {
       this.message = 'Please enter valid credentials.';
-      console.warn('⚠️ Invalid form:', this.loginForm.value);
       return;
     }
 
     this.isLoading = true;
     const credentials = this.loginForm.value;
-    console.log('Sending credentials:', credentials);
 
     this.auth.login(credentials).subscribe({
       next: (res) => {
-        console.log('✅ Server response:', res);
         if (res.success) {
-          this.message = 'Login successful!';
-          localStorage.setItem('user', JSON.stringify(res.user));
+          // Erwartet:
+          // res.user = { id, firstname?, email, role }
+          // res.token = '...'
 
-          // 🔄 Direkt neu laden, damit Navbar & Zustand aktualisiert werden
+          if (!res.user || !res.user.id || !res.user.role) {
+            console.error('Login response missing id/role. Guards will fail.');
+          }
+
+          localStorage.setItem('user', JSON.stringify(res.user));
+          if (res.token) {
+            localStorage.setItem('token', res.token);
+          }
+
+          this.message = 'Login successful!';
+
+          // reload to update navbar + routing
           setTimeout(() => {
             window.location.reload();
           }, 400);
@@ -73,7 +81,6 @@ export class Login {
         }
       },
       error: (err) => {
-        console.error('❌ Login error:', err);
         this.message = err.error?.error || 'Server error.';
       },
       complete: () => {

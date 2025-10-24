@@ -11,6 +11,14 @@ build/
 *.log
 *.cache
 *.tmp
+package.json
+package-lock.json
+proxy.conf.json
+
+# Angular / TypeScript Configs (Dev only)
+angular.json
+tsconfig*.json
+karma.conf.js
 
 # IDEs / OS
 .vscode/
