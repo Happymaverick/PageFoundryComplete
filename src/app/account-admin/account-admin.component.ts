@@ -8,8 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   selector: 'app-account',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './account.html',
-  styleUrls: ['./account.css']
+  templateUrl: './account-admin.html',
+  styleUrls: ['./account-admin.css']
 })
 export class AccountComponent implements OnInit, OnDestroy {
   user: any = null;
@@ -95,7 +95,7 @@ private loadDashboardData(): void {
       console.log('[Account] nextConsulting after assign:', this.nextConsulting);
       console.log('[Account] projects after assign:', this.projects);
     },
-    error: (err) => {
+    error: (err: any) => {
       console.error('[Account] Dashboard load error:', err);
 
       // DEV FALLBACK, damit du sofort was siehst
