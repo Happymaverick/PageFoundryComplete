@@ -70,7 +70,9 @@ export class AccountComponent implements OnInit, OnDestroy {
     console.log('[Account] Fetching dashboard data with token:', token);
 
     this.http.get(
-      '/api/get_customer_dashboard.php',
+      (window.location.hostname === 'localhost'
+        ? '/PageFoundryBackend/api/get_customer_dashboard.php'
+        : '/api/get_customer_dashboard.php'),
       {
         headers: new HttpHeaders({
           'Authorization': `Bearer ${token}`
@@ -86,9 +88,10 @@ export class AccountComponent implements OnInit, OnDestroy {
         console.log('[Account] nextConsulting after assign:', this.nextConsulting);
         console.log('[Account] projects after assign:', this.projects);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('[Account] Dashboard load error:', err);
 
+        // fallback Demo-Daten nur dev-debug
         this.nextConsulting = {
           timestamp_start: '2025-10-28 14:30',
           zoom_url: 'https://zoom.us/j/9876543210',
