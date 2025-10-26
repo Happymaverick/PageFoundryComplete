@@ -1,38 +1,80 @@
 <?php
 header('Content-Type: application/json');
 
+// Hartes Debug während Integration
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// zentrale DB-Verbindung laden
-require_once '../config/db.php';
-
-// Falls DB kaputt
-if ($pdo === null) {
+/**
+ * Hilfsabbruch: gibt sauberes JSON + 500 zurück und beendet.
+ */
+function fail($label, $extra = []) {
     http_response_code(500);
     echo json_encode([
-        "consultingLeads" => [],
-        "paidOrders" => [],
-        "error" => "DB connection failed"
+        "error" => $label,
+        "debug" => $extra
     ]);
     exit;
 }
 
-// --- Auth / Rolle ---
-// TODO: Token -> User -> Rolle
-// Jetzt: fest admin/employee erlaubt
+/**
+ * 1. DB laden
+ * Wir binden db.php über absoluten Pfad ein,
+ * nicht relativ über CWD, damit nginx/alias kein Theater macht.
+ */
+$configPath = __DIR__ . '/../config/db.php';
+
+if (!file_exists($configPath)) {
+    fail('db_config_missing', [
+        'expected_path' => $configPath,
+        '__DIR__'       => __DIR__,
+        'ls_api'        => scandir(__DIR__),
+        'ls_parent'     => scandir(dirname(__DIR__)),
+    ]);
+}
+
+require_once $configPath;
+
+/**
+ * Erwartung: db.php setzt $pdo (PDO Verbindung)
+ * Falls nicht vorhanden oder kaputt -> abbrechen.
+ */
+if (!isset($pdo) || !$pdo) {
+    fail('db_connection_not_available', [
+        'config_used' => $configPath
+    ]);
+}
+
+if (!($pdo instanceof PDO)) {
+    fail('pdo_is_not_pdo', [
+        'type'  => gettype($pdo),
+        'class' => is_object($pdo) ? get_class($pdo) : null
+    ]);
+}
+
+// optional: DB-Error-Mode sicherstellen
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// --- 2. Auth / Rolle ---
+// TODO: Später Token -> User -> Role via sessions / jwt
+// Jetzt statisch "admin"
 $user_role = 'admin';
-if (!in_array($user_role, ['admin','employee'], true)) {
+if (!in_array($user_role, ['admin', 'employee'], true)) {
+    // Zugriff verweigert. Kein 500, sondern leer legit.
     echo json_encode([
         "consultingLeads" => [],
-        "paidOrders" => []
+        "paidOrders"      => [],
+        "note"            => "access_denied_for_role",
+        "role"            => $user_role
     ]);
     exit;
 }
 
-// --- Consulting Leads (free consulting bookings etc) ---
+// --- 3. Consulting Leads einsammeln ---
 $consultingLeads = [];
+$consultingError = null;
+
 try {
     $stmt = $pdo->query("
         SELECT
@@ -52,7 +94,7 @@ try {
         LIMIT 100
     ");
 
-    while ($row = $stmt->fetch()) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $consultingLeads[] = [
             "timestamp_start"  => $row['timestamp_start'],
             "full_name"        => $row['full_name'],
@@ -66,12 +108,16 @@ try {
             "zoom_url"         => $row['zoom_url']
         ];
     }
-} catch (Exception $e) {
+} catch (Throwable $e) {
+    // Tabelle/Spaltenfehler etc.
     $consultingLeads = [];
+    $consultingError = $e->getMessage();
 }
 
-// --- Paid Orders (Stripe Orders / Projektaufträge) ---
+// --- 4. Paid Orders einsammeln ---
 $paidOrders = [];
+$ordersError = null;
+
 try {
     $stmt = $pdo->query("
         SELECT
@@ -94,14 +140,16 @@ try {
         LIMIT 100
     ");
 
-    while ($row = $stmt->fetch()) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $paidOrders[] = [
             "id"                 => (int)$row['id'],
             "company_name"       => $row['company_name'],
             "contact_email"      => $row['contact_email'],
             "contact_phone"      => $row['contact_phone'],
             "package_id"         => $row['package_id'],
-            "amount_total_cents" => isset($row['amount_total_cents']) ? (int)$row['amount_total_cents'] : null,
+            "amount_total_cents" => isset($row['amount_total_cents'])
+                                      ? (int)$row['amount_total_cents']
+                                      : null,
             "currency"           => $row['currency'],
             "deadline_note"      => $row['deadline_note'],
             "goal_description"   => $row['goal_description'],
@@ -112,12 +160,21 @@ try {
             "last_status_update" => $row['last_status_update'] ?? null
         ];
     }
-} catch (Exception $e) {
+} catch (Throwable $e) {
     $paidOrders = [];
+    $ordersError = $e->getMessage();
 }
 
-// --- Response ---
+// --- 5. Normale Response (immer 200) ---
+// Admin-Frontend versteht das. Wenn leer, zeigt es "Failed to load dashboard."
+http_response_code(200);
 echo json_encode([
     "consultingLeads" => $consultingLeads,
-    "paidOrders"      => $paidOrders
+    "paidOrders"      => $paidOrders,
+    "debug" => [
+        "consultingError" => $consultingError,
+        "ordersError"     => $ordersError,
+        "db_config_used"  => $configPath
+    ]
 ]);
+exit;
